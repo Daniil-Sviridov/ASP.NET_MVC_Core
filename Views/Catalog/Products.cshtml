@@ -1,0 +1,26 @@
+﻿@model Catalog
+
+@{
+    ViewData["Title"] = "Список товаров";
+}
+
+<div class="warning">
+    
+</div>
+
+
+@foreach (var product in Model.Products)
+{
+    <div  outline: 2px solid #000 > <img src="/media/product/nophoto.png" > @product.Id @product.Name</div>
+}
+
+@{
+}
+
+<form method="post">
+    Id: <input type="text" name="id" required />
+    <br/>
+    Имя: <input type="text" name="name" />
+    <br/>
+    <input type="submit" name="submit" value="Создать" />
+</form>
