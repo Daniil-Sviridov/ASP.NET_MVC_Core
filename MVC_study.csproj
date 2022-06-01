@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="media\product\" />
+    <None Include="wwwroot\media\product\no.png" />
+    <None Include="wwwroot\media\product\nophoto.png" />
   </ItemGroup>
 
 </Project>
