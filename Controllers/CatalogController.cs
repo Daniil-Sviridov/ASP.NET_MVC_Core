@@ -5,11 +5,12 @@ namespace MVC_study.Controllers
 {
     public class CatalogController : Controller
     {
-        private Catalog _catalog = new();
+        private ICatalog _catalog;
 
-        public CatalogController()
+        public CatalogController(ICatalog catalog)
         {
-            _catalog.Products.Add(new Product() { Id = 1, Name = "Тест" }) ;
+            _catalog = catalog;
+            //_catalog.Add(new Product() { Id = 1, Name = "Тест" }) ;
         }
 
         [HttpGet]
@@ -21,7 +22,7 @@ namespace MVC_study.Controllers
         [HttpPost]
         public IActionResult Products(Product model)
         {
-            _catalog.Products.Add(model);
+            _catalog.Add(model);
             return View(_catalog);
         }
     }
