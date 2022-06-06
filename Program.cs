@@ -1,9 +1,12 @@
+using MVC_study.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ICatalog, Catalog>();
 
 var app = builder.Build();
 
