@@ -10,7 +10,6 @@ namespace MVC_study.Controllers
         public CatalogController(ICatalog catalog)
         {
             _catalog = catalog;
-            //_catalog.Add(new Product() { Id = 1, Name = "Тест" }) ;
         }
 
         [HttpGet]

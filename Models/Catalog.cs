@@ -5,99 +5,175 @@ namespace MVC_study.Models
 
     public class Catalog : ICatalog
     {
-        object singleowner = new object();
+        private readonly ReaderWriterLockSlim _lock;
+        private List<Product> _products;
 
-        public Product this[int index] { 
-            get 
+        public Product this[int index]
+        {
+            get
             {
-                return Products[index];
+                try
+                {
+                    _lock.EnterReadLock();
+                    return _products[index];
+                }
+                finally
+                {
+                    _lock.ExitReadLock();
+                }
             }
             set
             {
-                Products[index] = value;
+
+                try
+                {
+                    _lock.EnterWriteLock();
+                    _products[index] = value;
+                }
+                finally
+                {
+                    _lock.ExitWriteLock();
+                }
             }
         }
 
-        private List<Product> Products;
+        public int Count
+        {
+            get
+            {
+                try
+                {
+                    _lock.EnterReadLock();
+                    return _products.Count;
+                }
+                finally
+                {
+                    _lock.ExitReadLock();
+                }
+            }
+        }
 
-        public int Count { get => Products.Count; }
-
-        public bool IsReadOnly { get => true; }
+        public bool IsReadOnly => false;
 
         public Catalog()
         {
-            Products = new List<Product>();
+            _products = new List<Product>();
+            _lock = new ReaderWriterLockSlim();
         }
 
         public void Add(Product item)
         {
-            lock (singleowner)
+            try
             {
-                Products.Add(item);
+                _lock.EnterWriteLock();
+                _products.Add(item);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
             }
         }
 
         public void Clear()
         {
-            lock (singleowner)
+            try
             {
-                Products.Clear();
+                _lock.EnterWriteLock();
+                _products.Clear();
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
             }
         }
 
         public bool Contains(Product item)
         {
-           return Products.Contains(item);
+            try
+            {
+                _lock.EnterReadLock();
+                return _products.Contains(item);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
         }
 
         public void CopyTo(Product[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _lock.EnterReadLock();
+                _products.CopyTo(array, arrayIndex);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
         }
 
         public IEnumerator<Product> GetEnumerator()
         {
-            lock (singleowner)
+            try
             {
-                return Products.GetEnumerator();
+                _lock.EnterReadLock();
+                foreach (Product item in _products)
+                    yield return item;
+            }
+            finally
+            {
+                _lock.ExitReadLock();
             }
         }
 
         public int IndexOf(Product item)
         {
-            lock (singleowner)
+            try
             {
-                return Products.IndexOf(item);
+                _lock.EnterReadLock();
+                return _products.IndexOf(item);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
             }
         }
 
         public void Insert(int index, Product item)
         {
-            lock (singleowner)
-            {
-                Products[index] = item;
-            }
+            this.Insert(index, item);
         }
 
         public bool Remove(Product item)
         {
-            lock (singleowner)
+            try
             {
-                return Products.Remove(item);
+                _lock.EnterWriteLock();
+                return _products.Remove(item);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
             }
         }
 
         public void RemoveAt(int index)
         {
-            lock (singleowner)
+            try
             {
-                Products.RemoveAt(index);
+                _lock.EnterWriteLock();
+                _products.RemoveAt(index);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
