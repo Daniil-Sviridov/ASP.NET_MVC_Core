@@ -29,7 +29,7 @@ namespace MVC_study.Controllers
             List<string> to = new List<string>();
             to.Add("daniil_sviridov@mail.ru");
 
-            bool result =  _mail.SendMail(new MailData(to,"subject", "body"));
+            _ =  _mail.SendAsync(new MailData(to,"Добавлен новый товар!", $" id: {model.Id} name: {model.Name}"), new CancellationToken());
 
             return View(_catalog);
         }
