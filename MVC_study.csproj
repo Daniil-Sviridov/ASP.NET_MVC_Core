@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dbbaec9e-939f-4588-ba39-4ed8a38981d5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,11 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
   </ItemGroup>
 
 </Project>

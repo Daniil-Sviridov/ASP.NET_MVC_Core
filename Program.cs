@@ -1,6 +1,7 @@
 using MVC_study;
 using MVC_study.Models;
 using MVC_study.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,12 @@ builder.Services.AddSingleton<ICatalog, Catalog>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MVC_study.MailSettings)));
 builder.Services.AddTransient<IMailService, MailService>();
 
+
+builder.Host.UseSerilog((ctx, conf) =>
+{
+    conf.ReadFrom.Configuration(ctx.Configuration)
+    ;
+});
 
 
 var app = builder.Build();
