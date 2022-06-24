@@ -4,6 +4,5 @@
     {
         Task<bool> SendAsync(MailData mailData, CancellationToken ct);
 
-        bool SendMail(MailData mailData);
     }
 }

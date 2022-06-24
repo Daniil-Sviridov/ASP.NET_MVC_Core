@@ -26,7 +26,7 @@ namespace MVC_study.Controllers
         {
             _catalog.Add(model);
 
-            List<string> to = new List<string>();
+            List<string> to = new();
             to.Add("daniil_sviridov@mail.ru");
 
             _ =  _mail.SendAsync(new MailData(to,"Добавлен новый товар!", $" id: {model.Id} name: {model.Name}"), new CancellationToken());

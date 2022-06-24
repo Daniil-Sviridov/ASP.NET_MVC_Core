@@ -13,6 +13,8 @@ builder.Services.AddSingleton<ICatalog, Catalog>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MVC_study.MailSettings)));
 builder.Services.AddTransient<IMailService, MailService>();
 
+builder.Services.AddHostedService<MyBackgroundService>();
+
 
 builder.Host.UseSerilog((ctx, conf) =>
 {
