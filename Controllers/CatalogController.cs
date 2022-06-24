@@ -24,12 +24,13 @@ namespace MVC_study.Controllers
         [HttpPost]
         public IActionResult ProductsAsync(Product model)
         {
-            _catalog.Add(model);
+            CancellationToken ct = new CancellationToken();
+            _catalog.Add(model, ct);
 
             List<string> to = new();
             to.Add("daniil_sviridov@mail.ru");
 
-            _ =  _mail.SendAsync(new MailData(to,"Добавлен новый товар!", $" id: {model.Id} name: {model.Name}"), new CancellationToken());
+            _ =  _mail.SendAsync(new MailData(to,"Добавлен новый товар!", $" id: {model.Id} name: {model.Name}"), ct);
 
             return View(_catalog);
         }

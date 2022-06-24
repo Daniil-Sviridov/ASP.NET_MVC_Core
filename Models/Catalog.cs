@@ -62,7 +62,7 @@ namespace MVC_study.Models
             _lock = new ReaderWriterLockSlim();
         }
 
-        public void Add(Product item)
+        public void Add(Product item) 
         {
             try
             {
@@ -73,6 +73,15 @@ namespace MVC_study.Models
             {
                 _lock.ExitWriteLock();
             }
+        }
+
+        public void Add(Product item, CancellationToken token = default)
+        {
+
+            if (token.IsCancellationRequested)
+                return;
+
+           Add(item);
         }
 
         public void Clear()
