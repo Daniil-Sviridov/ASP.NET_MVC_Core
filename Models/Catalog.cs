@@ -152,7 +152,7 @@ namespace MVC_study.Models
 
         public void Insert(int index, Product item)
         {
-            this.Insert(index, item);
+            Insert(index, item);
         }
 
         public bool Remove(Product item)
@@ -183,7 +183,7 @@ namespace MVC_study.Models
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }
