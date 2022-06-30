@@ -1,4 +1,5 @@
-﻿using MVC_study.Services;
+﻿using MVC_study.DomainEvents;
+using MVC_study.Services;
 using System.Collections;
 
 namespace MVC_study.Models
@@ -62,12 +63,14 @@ namespace MVC_study.Models
             _lock = new ReaderWriterLockSlim();
         }
 
-        public void Add(Product item) 
+        public void Add(Product item)
         {
             try
             {
                 _lock.EnterWriteLock();
                 _products.Add(item);
+                //Регистрируем событие
+                DomainEventsManager.Raise(new ProductAdded(item));
             }
             finally
             {
@@ -81,7 +84,7 @@ namespace MVC_study.Models
             if (token.IsCancellationRequested)
                 return;
 
-           Add(item);
+            Add(item);
         }
 
         public void Clear()

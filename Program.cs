@@ -1,4 +1,6 @@
+using Lesson.DI.DomainEvents;
 using MVC_study;
+using MVC_study.DomainEvents;
 using MVC_study.Models;
 using MVC_study.Services;
 using Serilog;
@@ -11,7 +13,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICatalog, Catalog>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MVC_study.MailSettings)));
-builder.Services.AddTransient<IMailService, MailService>();
+builder.Services.AddSingleton<IMailService, MailService>();
+
+builder.Services.AddHostedService<ProductAddedMailSender>();
 
 builder.Services.AddHostedService<MyBackgroundService>();
 

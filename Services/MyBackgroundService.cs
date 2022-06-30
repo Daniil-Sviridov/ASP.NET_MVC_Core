@@ -15,7 +15,7 @@ namespace MVC_study.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+            using var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
             Stopwatch sw = Stopwatch.StartNew();
             while (await timer.WaitForNextTickAsync(stoppingToken))
             {

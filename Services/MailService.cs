@@ -73,15 +73,15 @@ namespace MVC_study.Services
             }
             catch (Exception)
             {
-                throw;
-                
+                return false;
+
             }
 
-            return false;
+
         }
 
-        
-        
+
+
     }
 }
 
