@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_study.Models;
+using MVC_study.Services;
 
 namespace MVC_study.Controllers
 {
     public class CatalogController : Controller
     {
-        private Catalog _catalog = new();
+        private ICatalog _catalog;
 
-        public CatalogController()
+
+        public CatalogController(ICatalog catalog)
         {
-            _catalog.Products.Add(new Product() { Id = 1, Name = "Тест" }) ;
+            _catalog = catalog;
         }
 
         [HttpGet]
@@ -19,9 +21,11 @@ namespace MVC_study.Controllers
         }
 
         [HttpPost]
-        public IActionResult Products(Product model)
+        public IActionResult ProductsAsync(Product model)
         {
-            _catalog.Products.Add(model);
+            CancellationToken ct = new CancellationToken();
+            _catalog.Add(model, ct);
+
             return View(_catalog);
         }
     }
