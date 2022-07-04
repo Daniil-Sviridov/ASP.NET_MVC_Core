@@ -4,10 +4,28 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dbbaec9e-939f-4588-ba39-4ed8a38981d5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="media\product\" />
+    <Compile Remove="additionally\**" />
+    <Content Remove="additionally\**" />
+    <EmbeddedResource Remove="additionally\**" />
+    <None Remove="additionally\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\media\product\no.png" />
+    <None Include="wwwroot\media\product\nophoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
   </ItemGroup>
 
 </Project>

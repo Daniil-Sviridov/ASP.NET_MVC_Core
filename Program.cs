@@ -1,9 +1,27 @@
+using MVC_study;
+using MVC_study.Models;
+using MVC_study.Services;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ICatalog, Catalog>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MVC_study.MailSettings)));
+builder.Services.AddTransient<IMailService, MailService>();
+
+builder.Services.AddHostedService<MyBackgroundService>();
+
+
+builder.Host.UseSerilog((ctx, conf) =>
+{
+    conf.ReadFrom.Configuration(ctx.Configuration)
+    ;
+});
+
 
 var app = builder.Build();
 
