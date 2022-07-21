@@ -1,6 +1,7 @@
 using Lesson.DI.DomainEvents;
 using MVC_study;
 using MVC_study.DomainEvents;
+using MVC_study.Middleware;
 using MVC_study.Models;
 using MVC_study.Services;
 using Serilog;
@@ -22,6 +23,9 @@ builder.Services.AddHostedService<ProductAddedMailSender>();
 
 builder.Services.AddHostedService<MyBackgroundService>();
 
+builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.RequestBody
+                                                           | Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.ResponseBody);
+
 
 builder.Host.UseSerilog((ctx, conf) =>
 {
@@ -30,6 +34,10 @@ builder.Host.UseSerilog((ctx, conf) =>
 
 
 var app = builder.Build();
+
+app.UseMiddleware<RequestLogginMiddleware>();
+
+app.UseHttpLogging();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
