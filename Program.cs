@@ -14,7 +14,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICatalog, Catalog>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MVC_study.MailSettings)));
 builder.Services.AddSingleton<IMailService, MailService>();
-builder.Services.AddSingleton<middleware>();
 
 builder.Services.AddHostedService<ProductAddedMailSender>();
 
