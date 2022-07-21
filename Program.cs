@@ -22,8 +22,7 @@ builder.Services.AddHostedService<MyBackgroundService>();
 
 builder.Host.UseSerilog((ctx, conf) =>
 {
-    conf.ReadFrom.Configuration(ctx.Configuration)
-    ;
+    conf.ReadFrom.Configuration(ctx.Configuration);
 });
 
 
