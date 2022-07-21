@@ -2,7 +2,6 @@
 
 namespace MVC_study.Models
 {
-    public class Metrics:IMetrics
     {
         public string this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
