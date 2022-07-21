@@ -1,6 +1,6 @@
 ﻿namespace MVC_study.Models
 {
-    public interface ICatalog : IList<Product>, IEquatable<Catalog>
+    public interface ICatalog : IList<Product>
     {
 
         public void Add(Product product, CancellationToken ct = default);

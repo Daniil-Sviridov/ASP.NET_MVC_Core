@@ -188,10 +188,5 @@ namespace MVC_study.Models
         {
             return GetEnumerator();
         }
-
-        public bool Equals(Catalog? other)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
