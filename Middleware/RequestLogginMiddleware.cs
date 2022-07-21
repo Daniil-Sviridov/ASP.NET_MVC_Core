@@ -1,4 +1,6 @@
-﻿namespace MVC_study.Middleware
+﻿using MVC_study.Models;
+
+namespace MVC_study.Middleware
 {
     public class RequestLogginMiddleware
     {
@@ -11,16 +13,27 @@
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, IMetrics metrics)
         {
             //System.Web.HttpBrowserCapabilities browser = context.Request.Browser;
 
-            string useragent = context.Request.Headers.UserAgent.ToString();
-            if (!useragent.ToLower().Contains("edg")) 
+            string useragent = context.Request.Headers.UserAgent.ToString().ToLower();
+            if (!useragent.Contains("edg"))
             {
                 await context.Response.WriteAsync("Sorry");
-                return ;
+                return;
             }
+
+            string path = context.Request.Path.ToString().ToLower();
+            if (path == "/") metrics.incindex();
+
+            if (path.Contains("privacy")) metrics.incprivacy();
+
+            if (path.Contains("product")) metrics.incproducts();
+
+            if (path.Contains("metric")) metrics.incmetrics();
+
+
 
             await _next(context);
         }

@@ -1,7 +1,13 @@
 ﻿namespace MVC_study.Models
 {
-    public interface IMetrics : IList<string>
+    public interface IMetrics 
     {
-        public void Add(Metrics metrics, CancellationToken ct = default);
+        public void incindex();
+
+        public void incprivacy();
+
+        public void incproducts();
+
+        public void incmetrics();
     }
 }

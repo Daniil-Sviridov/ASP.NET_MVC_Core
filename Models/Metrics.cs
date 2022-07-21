@@ -4,67 +4,34 @@ namespace MVC_study.Models
 {
     public class Metrics : IMetrics
     {
-        public string this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public int Id { get; set; }
+        public int index = 0;
 
-        public int Count => throw new NotImplementedException();
+        public int metrics = 0;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public int privacy = 0;
 
-        public void Add(string item)
+        public int products = 0;
+
+
+        public void incindex()
         {
-            throw new NotImplementedException();
+            index = ++index;
         }
 
-        public void Add(Metrics metrics, CancellationToken ct = default)
+        public void incmetrics()
         {
-            throw new NotImplementedException();
+            metrics = ++metrics;
         }
 
-        public void Clear()
+        public void incprivacy()
         {
-            throw new NotImplementedException();
+            privacy = ++privacy;
         }
 
-        public bool Contains(string item)
+        public void incproducts()
         {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(string[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<string> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int IndexOf(string item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(int index, string item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(string item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAt(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            products = ++products;
         }
     }
 }
